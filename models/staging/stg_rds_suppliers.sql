@@ -3,8 +3,8 @@ WITH source AS (
 ),
 renamed AS (
   SELECT *,
-    split_part(contact_name, ' ', 1) AS contact_first_name,
-    split_part(contact_name, ' ', 2) AS contact_last_name
+    split_part(contact_name, ' ', 1) AS contact_first,
+    split_part(contact_name, ' ', 2) AS contact_last
   FROM source
 ),
 valid_phone_number AS (
