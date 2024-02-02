@@ -1,16 +1,26 @@
 WITH source AS (
   SELECT * FROM public.suppliers
 ),
-renamed AS (
-  SELECT *,
+transformed AS (
+  SELECT supplier_id,
+    company_name,
     split_part(contact_name, ' ', 1) AS contact_first_name,
     split_part(contact_name, ' ', 2) AS contact_last_name,
-    current_timestamp() AS updated_at
+    contact_title,
+    address,
+    city,
+    region,
+    postal_code,
+    country,
+    CASE WHEN
+      LENGTH(TRANSLATE(phone, '.(-) ', '')) = 10 THEN
+      '('
+      || SUBSTRING(TRANSLATE(phone, '.(-) ', '') FROM 1 FOR 3) 
+      ||')'
+      || SUBSTRING(TRANSLATE(phone, '.(-) ', '') FROM 4 FOR 3) 
+      || '-'
+      || SUBSTRING(TRANSLATE(phone, '.(-) ', '') FROM 7 FOR 10) ELSE phone END AS phone,
+    fax
   FROM source
-),
-valid_phone_number AS (
-  SELECT * 
-  FROM renamed
-  WHERE length(replace(replace(replace(replace(replace(phone, '-', ''), '(', ''), ')', ''), '.', ''),' ', '')) = 10
 )
-SELECT * FROM valid_phone_number
+SELECT * FROM transformed
