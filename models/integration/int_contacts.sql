@@ -39,4 +39,13 @@ final AS (
     first_name,
     last_name
 )
-SELECT * FROM final
+SELECT {{ dbt_utils.generate_surrogate_key(['first_name', 'last_name', 'phone']) }} AS 
+  contact_pk,
+  hubspot_contact_id,
+  rds_contact_id,
+  first_name,
+  last_name,
+  phone,
+  hubspot_company_id,
+  rds_company_id 
+FROM final

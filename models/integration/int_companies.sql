@@ -17,24 +17,22 @@ merged_companies AS (
     name
   FROM rds_companies
 ),
-dedup_companies AS (
+deduped AS (
   SELECT 
       MAX(hubspot_company_id) AS hubspot_company_id,
       MAX(rds_company_id) AS rds_company_id,
       name
   FROM merged_companies
   GROUP BY name
-),
-final AS (
-  SELECT
-    dc.hubspot_company_id,
-    dc.rds_company_id,
-    dc.name,
-    rc.address,
-    rc.city,
-    rc.postal_code,
-    rc.country
-  FROM dedup_companies AS dc
-  LEFT JOIN rds_companies rc ON dc.name = rc.name
 )
-SELECT * FROM final
+SELECT {{ dbt_utils.generate_surrogate_key(['deduped.name']) }} AS 
+   company_pk, 
+   hubspot_company_id, 
+   rds_company_id,
+   deduped.name,
+   address,
+   postal_code,
+   city,
+   country 
+FROM deduped
+LEFT OUTER JOIN rds_companies on rds_companies.company_id = deduped.rds_company_id
