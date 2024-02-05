@@ -27,8 +27,8 @@ deduped AS (
 )
 SELECT {{ dbt_utils.generate_surrogate_key(['deduped.name']) }} AS 
    company_pk, 
-   hubspot_company_id, 
-   rds_company_id,
+   -- hubspot_company_id, 
+   -- rds_company_id,
    deduped.name,
    address,
    postal_code,
