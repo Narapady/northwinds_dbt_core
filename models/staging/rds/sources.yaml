@@ -5,4 +5,7 @@ sources:
     schema: public
     tables:
       - name: customers
-  
+      - name: orders 
+      - name: products
+      - name: order_details
+      - name: employees

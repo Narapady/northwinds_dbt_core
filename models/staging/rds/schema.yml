@@ -1,0 +1,17 @@
+
+version: 2
+models: 
+  - name: stg_rds_orders # model name
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: unit_price
+        tests:
+          - not_null
+      - name: customer_id
+        tests:
+          - relationships:
+              to: ref('stg_rds_customers')
+              field: customer_id
+

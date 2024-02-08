@@ -20,7 +20,7 @@ final AS (
     hcon.last_name,
     CASE WHEN
       LENGTH(updated_phone) = 10 THEN
-        '(' || SUBSTRING(updated_phone, 1, 3) || ')' || SUBSTRING(updated_phone, 4, 3) || '-'
+        '(' || SUBSTRING(updated_phone, 1, 3) || ') ' || SUBSTRING(updated_phone, 4, 3) || '-'
         || SUBSTRING(updated_phone, 7, 4)
     END AS phone,
     hcom.company_id
