@@ -1,0 +1,21 @@
+
+version: 2
+models: 
+  - name: int_contacts # model name
+    columns:
+      - name: contact_pk
+        tests:
+          - not_null
+          - unique
+      - name: first_name
+        tests:
+          - not_null
+      - name: last_name
+        tests:
+          - not_null
+  - name: int_companies
+    columns:
+      - name: company_pk
+        tests:
+          - not_null
+          - unique
