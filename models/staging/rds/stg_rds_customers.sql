@@ -25,7 +25,8 @@ final AS (
         '(' || SUBSTRING(updated_phone, 1, 3) || ')' || SUBSTRING(updated_phone, 4, 3) || '-'
         || SUBSTRING(updated_phone, 7, 4)
     END AS phone,
-    company_id
+    company_id,
+    CURRENT_TIMESTAMP AS updated_at
   FROM renamed
 )
 SELECT * FROM final
