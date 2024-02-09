@@ -1,5 +1,5 @@
 
-{{ config(materialized='table')}}
+-- {{ config(materialized='table')}}
 
 WITH int_contacts AS (
   SELECT * FROM {{ ref('int_contacts') }}

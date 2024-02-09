@@ -1,4 +1,4 @@
-{{ config(materialized='table')}}
+-- {{ config(materialized='table')}}
 
 WITH int_orders AS (
   SELECT * FROM {{ ref('int_orders')}}
